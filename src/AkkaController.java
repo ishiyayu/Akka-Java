@@ -14,6 +14,9 @@ public class AkkaController {
 
 	private ActorSystem actorSystem;
 
+	private volatile boolean stopFlg = false;
+
+
 	public void execute() throws Exception {
 
 		// ActorSystem起動（パラメータはActorSystemにつける名前です）
@@ -24,6 +27,10 @@ public class AkkaController {
 
 		ActorRef actor = null;
 		while (true) {
+
+			if (stopFlg) {
+				break;
+			}
 
 			// Actor の作成（パラメータはActorにつける名前です）
 			actor = createActor(FirstActor.class, "actor-name");
@@ -76,6 +83,7 @@ public class AkkaController {
 	public void shutdownHook(ActorSystem actorSystem) {
 		// JVM 終了時に ActorSystem を shutdown する
 		Thread t = new Thread(() -> {
+			this.stopFlg = true;
 			actorSystem.shutdown();
 			System.out.println("shutdownHook!!");
 			actorSystem.awaitTermination();}
