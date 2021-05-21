@@ -1,5 +1,6 @@
 # Akka-Java
 
-qiita 記事のCodeです
+Blog 記事のCodeです
 
-http://qiita.com/ishiyayu/items/fc63f81ea49200e8b237
+https://it-omochi.com/it/tech/akka-in-java
+
